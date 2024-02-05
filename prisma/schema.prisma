@@ -11,9 +11,12 @@ datasource db {
 }
 
 model User {
-  id      String    @id @default(uuid())
-  name    String
-  Bookings Booking[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  bookings      Booking[]
 }
 
 model Barbershop {
@@ -21,28 +24,28 @@ model Barbershop {
   name     String
   address  String
   imageUrl String
-  Services  Service[]
-  Bookings  Booking[]
+  services Service[]
+  bookings Booking[]
 }
 
 model Service {
   id           String     @id @default(uuid())
   name         String
   price        Decimal    @db.Decimal(10, 2)
-  barberShopId String
-  barbershop   Barbershop @relation(fields: [barberShopId], references: [id])
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   description  String
-  bookings     Booking[] 
+  bookings     Booking[]
+  imageUrl     String
 }
 
 model Booking {
-  id           String     @id @default(uuid())
-  userId       String
-  User         User       @relation(fields: [userId], references: [id])
-  date         DateTime
-  barberShopId String
-  barbershop   Barbershop @relation(fields: [barberShopId], references: [id])
-  serviceId    String
-  service      Service    @relation(fields: [serviceId], references: [id])
-  status       String
+  id          String     @id @default(uuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  serviceId   String
+  service     Service    @relation(fields: [serviceId], references: [id])
+  barbershopId String
+  barbershop  Barbershop @relation(fields: [barbershopId], references: [id])
+  date        DateTime
 }
