@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Header from "../_components/header";
 
 export default function Home() {
   return (
-  <main>
-    <h1>Razor club</h1>
-  </main>
+  <div>
+    <Header></Header>
+  </div>
   );
 }
