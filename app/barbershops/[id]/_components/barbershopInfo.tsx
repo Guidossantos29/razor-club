@@ -44,6 +44,9 @@ const BarbershopInfo = ({barbershop}: BarbershopInfoProps) => {
                         <StarIcon size={18} className="text-primary"/>
                         <p className="text-sm">5,0 (899 avaliações)</p>
                     </div>
+
+                    
+                    
             </div>
            
             
