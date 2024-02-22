@@ -10,9 +10,10 @@ import { useRouter } from "next/navigation";
 
 interface BarbershopItemProps {
   barbershop: Barbershop;
+  isAuthenticated?: boolean
 }
 
-const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
+const BarbershopItem = ({ barbershop,isAuthenticated }: BarbershopItemProps) => {
   const router = useRouter()
   
   const handleBookingClick = () => {
@@ -46,7 +47,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
         <div className="px-2 pb-3">
           <h2 className="font-bold mt-2 overflow-hidden text-ellipsis text-nowrap">{barbershop.name}</h2>
           <p className="text-sm text-gray-400 overflow-hidden text-ellipsis text-nowrap">{barbershop.address}</p>
-          <Button onClick={handleBookingClick} className="w-full mt-3" variant="secondary" >
+          <Button onClick={handleBookingClick} className="w-full mt-3" variant="secondary"  >
             Reservar
           </Button>
         </div>
