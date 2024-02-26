@@ -13,6 +13,8 @@ import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from 'date-fns';
 import { saveBooking } from "../_action/save-booking";
 import { Loader2 } from "lucide-react";
+import { Toaster, toast } from "sonner";
+import router from "next/router";
 
 
 
@@ -23,11 +25,12 @@ interface ServiceItemProps {
 }
 
 const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps) => {
-    const {data} = useSession()
+    const { data } = useSession()
 
     const [date, setDate] = useState<Date | undefined>(undefined);
     const [hour, setHour] = useState<string | undefined>();
-    const [submitLoading,setSubmitLoanding] = useState(false)
+    const [submitLoading, setSubmitLoanding] = useState(false)
+    const [sheetIsOpen, setSheetIsOpen] = useState(false);
 
     const timeList = useMemo(() => {
         return date ? generateDayTimeList(date) : []
@@ -48,32 +51,43 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
     }
     const handleBookingSubmit = async () => {
         setSubmitLoanding(true)
-        
-        try{
-            if(!hour || !date || !data?.user){
+
+        try {
+            if (!hour || !date || !data?.user) {
                 return
             }
             const dateHour = Number(hour.split(':')[0])
             const dateMinute = Number(hour.split(':')[1])
             const newDate = setMinutes(setHours(date, dateHour), dateMinute);
-            
+
             await saveBooking({
                 serviceId: service.id,
                 barbershopId: barbershop.id,
                 date: newDate,
                 userId: (data.user as any).id,
-              });
-        
-    
-        } catch(error) {
+            });
+            setSheetIsOpen(false)
+            setHour(undefined);
+            setDate(undefined);
+
+            toast("Reserva realizada com sucesso!", {
+                description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm'.'", {
+                    locale: ptBR,
+                }),
+                action: {
+                    label: "Visualizar",
+                    onClick: () => router.push("/bookings")
+                },
+            })
+        } catch (error) {
             console.log(error);
-            
+
         } finally {
             setSubmitLoanding(false)
         }
-       
+
     }
-    
+
 
     return (
         <Card>
@@ -103,7 +117,7 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
                     </div>
 
 
-                    <Sheet>
+                    <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                         <SheetTrigger asChild>
                             <div className="flex items-center justify-between">
                                 <Button variant="secondary" onClick={handleBookingClick}>Reservar</Button>
