@@ -13,7 +13,7 @@ import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from 'date-fns';
 import { saveBooking } from "../_action/save-booking";
 import { Loader2 } from "lucide-react";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import router from "next/router";
 import { getDayBookings } from "../_action/get-day-booking";
 
@@ -129,13 +129,12 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
         <Card>
             <CardContent className="p-3 w-full">
                 <div className="flex gap-4 items-center w-full">
-                    <div className="relative h-[110px] w-[110px] max-h-[110px] max-w-[110px]">
+                    <div className="relative min-h-[110px] min-w-[110px] max-h-[110px] max-w-[110px]">
                         <Image
                             className="rounded-lg"
                             src={service.imageUrl}
                             alt={service.name}
                             fill
-                            priority
                             style={{
                                 objectFit: "contain"
                             }}
