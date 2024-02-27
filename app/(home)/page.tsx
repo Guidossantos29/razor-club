@@ -27,11 +27,11 @@ export default async function Home() {
     <Search/>
     </div>
 
-    <div className="px-5 mt-6">
+    {/* <div className="px-5 mt-6">
       <h2 className="uppercase text-gray-400 font-bold mb-3 text-xs">Agendamentos</h2>
-            <BookingItem/>
+            <BookingItem booking={booking}/>
 
-    </div>
+    </div> */}
     <div className="mt-6 mb-[4.5rem]"> 
         <h2 className="px-5 uppercase text-gray-400 font-bold mb-3 text-xs">Populares</h2>    
 

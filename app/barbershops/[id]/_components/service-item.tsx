@@ -14,7 +14,7 @@ import { format, setHours, setMinutes } from 'date-fns';
 import { saveBooking } from "../_action/save-booking";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import { getDayBookings } from "../_action/get-day-booking";
 
 
@@ -27,6 +27,7 @@ interface ServiceItemProps {
 
 const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps) => {
     const { data } = useSession()
+    const router = useRouter()
 
     const [date, setDate] = useState<Date | undefined>(undefined);
     const [hour, setHour] = useState<string | undefined>();
