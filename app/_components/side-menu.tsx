@@ -6,7 +6,7 @@ import { SheetHeader, SheetTitle } from "../components/ui/sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 const SideMenu = () => {
-    const { data, status } = useSession()
+    const { data } = useSession()
     const handleLoginClick = async () => {
         await signIn('google')
     }
@@ -52,7 +52,7 @@ const SideMenu = () => {
 
                 </div>
             )}
-            <div className="flex flex-col gap-3 px-5 ">
+            <div className="flex flex-col gap-3 px-5 py-6">
 
                 <Button variant="outline" className="justify-start" asChild>
                     <Link href="/">
