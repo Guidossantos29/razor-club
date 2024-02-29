@@ -37,17 +37,17 @@ const ServiceItem = ({ service, isAuthenticated, barbershop }: ServiceItemProps)
 
     useEffect(() => {
         if (!date) {
-          return;
+            return;
         }
-    
+
         const refreshAvailableHours = async () => {
-          const _dayBookings = await getDayBookings(barbershop.id, date);
-          setDayBookings(_dayBookings);
+            const _dayBookings = await getDayBookings(barbershop.id, date);
+            setDayBookings(_dayBookings);
         };
-    
+
         refreshAvailableHours();
-      }, [date, barbershop.id]);
-    
+    }, [date, barbershop.id]);
+
 
     const timeList = useMemo(() => {
         if (!date) {
